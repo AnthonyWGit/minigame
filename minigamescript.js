@@ -25,12 +25,17 @@ for (let i = 1; i <= 10; i++)       //For i starting at 1, excute the code in br
     const newbox = box.cloneNode()        //Create a newbox variable and give a clone of the node box.
     newbox.innerText = i                //Inside the newbox variable looking like <div class ="newbox"></div> put i between tags
     board.appendChild(newbox)           //To display the new boxes we have to appen the new node newbox to the parent node board
+    newbox.addEventListener("click",function() //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
+    {
+        console.log("Boîte n°"+i+",  click !") //Display "boite n°i, click !" in console
+        newbox.classList.add("box-valid") //add the class "box-valid" when clicked
+    })
 }                                   // 
 /*for (let i = 1; i <= 10; i++)
 {
-    let newbox = box.cloneNode()
-    newbox.innerText = i
-    board.appendChild(box)
+    let newbox = box.cloneNode()            *******
+    newbox.innerText = i                    *Garbage code 
+    board.appendChild(box)                  *******
 }
 */
 
