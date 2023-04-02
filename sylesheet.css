@@ -23,7 +23,10 @@
 }
 .box-valid
 {
-    background-color: violet;
+    background-color: rgb(0, 132, 255);
+    color:rgb(238, 255, 113);
+    transform: rotate(360deg);
+    transition: 1s;
 }
 @keyframes appear /*controls the intermediate steps in a CSS animation sequence by defining styles for keyframes (or waypoints) along the animation sequence.
                                     This gives more control over the intermediate steps of the animation sequence than transitions.*/
