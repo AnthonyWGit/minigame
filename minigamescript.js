@@ -1,3 +1,17 @@
+
+function shuffleChildren(parent)
+{
+    let children =parent.children //Children becomes the infant of parent paramater given above
+    let i = children.lenght, k, temp //Variables i, k and temp are declared. i takes the value of the number of objects of children in all board const
+    while(--i > 0) // Each time all the code in scope is executed, retire 1 to i, code in scope is executed until i reaches 0
+    {
+        k = Math.floor(Math.random() * (i+1)) // store in k the greatest int less than or equal to a random number between 0 and 1 times i+1
+        temp = board.children[k] // temp gives k postition in board
+        board.children[k] = board.children[i] //k position in board is replaced by i position in the same board
+        board.appendChild(temp) // Node temp is added to board 
+    }    
+}
+
 const box = document.createElement("div") // Declaration of a "box" constant creating "div" tags in the HTML document when used
 box.classList.add("box"); //we manipulate the list of class of constant box (which is empty) and add a new "box" class
 
@@ -19,15 +33,5 @@ for (let i = 1; i <= 10; i++)       //For i starting at 1, excute the code in br
     board.appendChild(box)
 }
 */
-function shuffleChildren(parent)
-{
-    let children =parent.children //Children becomes the infant of parent paramater given above
-    let i = children.lenght, k, temp //Variables i, k and temp are declared. i takes the value of the number of objects of children in all board const
-    while(--i > 0) // Each time all the code in scope is executed, retire 1 to i, code in scope is executed until i reaches 0
-    {
-        k = Math.floor(Math.random() * (i+1)) // store in k the greatest int less than or equal to a random number between 0 and 1 times i+1
-        temp = board.children[k] // temp gives k postition in board
-        board.children[k] = board.children[i] //k position in board is replaced by i position in the same board
-        board.appendChild(temp) // Node temp is added to board 
-    }    
-}
+
+shuffleChildren(board)  //function is called to display to board and so all the elements in it will appear as well
