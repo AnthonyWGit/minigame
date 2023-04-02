@@ -37,23 +37,39 @@ for (let i = 1; i <= 10; i++)       //For i starting at 1, excute the code in br
             //1
             if (nb == board.children.length)        //The case when the player wins.
             {                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player has won.
-                alert("YOU WIN !")
+                board.querySelector(".box").forEach(function(box)
+                {
+                    showReaction("sucess", box)
+                })
             }
         nb++            
         }
         //2 
         else if (nb < i)                            //The case when the player hits a higher number than the one he's supposed to click.
         {
-            alert("Wrong ! Try again")              //Displays this message and resets the count to one.
+            showReaction("error",newbox)             //Displays this message and resets the count to one.
             nb = 1
         }
         //3
         else
         {
-            alert("You already clicked it")
+            showReaction("notice",newbox)
         }
     })
-}                                   // 
+}
+
+function showReaction(type, clickedBox)
+{
+    clickedBox.classList.add(type)
+    if (type !== "success")
+    {
+        setTimeout(function()
+        {
+            clickedBox.classList.remove(type)
+        }, 800)
+    }
+}
+// 
 /*for (let i = 1; i <= 10; i++)
 {
     let newbox = box.cloneNode()            *******

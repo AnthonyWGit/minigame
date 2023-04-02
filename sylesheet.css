@@ -44,3 +44,15 @@
         transform: scale(1) rotate(0deg);
     }
 }
+.box.error
+{
+    background-color: red;
+}
+.box.success
+{
+    background-color: white;
+}
+.box.notice
+{
+    background-color: palegreen;
+}
