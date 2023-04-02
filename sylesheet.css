@@ -21,6 +21,10 @@
     background-color: #ccc;
     color: #aaa;
 }
+.box-valid
+{
+    background-color: violet;
+}
 @keyframes appear /*controls the intermediate steps in a CSS animation sequence by defining styles for keyframes (or waypoints) along the animation sequence.
                                     This gives more control over the intermediate steps of the animation sequence than transitions.*/
 {
