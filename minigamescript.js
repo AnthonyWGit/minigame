@@ -22,11 +22,15 @@ function showReaction(type, clickedBox)             //Here were create a functio
         }, 800)
     }
 }
+
 do
 {
     var aNumber = parseInt(window.prompt("Please enter a number from 1 to 100", ""), 10);   //prompt always return a string so we use parseInt to convert it
 }                                                                                           //to a an int.
 while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN, a number greater than 100 or 0 or less it will do what's is in scope above
+
+
+
 const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
 box.classList.add("box");                       //we manipulate the list of class of constant box (which is empty) and add a new "box" class
 
@@ -56,7 +60,7 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
                 alert("You win !")                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
                 board.querySelectorAll(".box").forEach(function(box) //
                 {
-                    showReaction("sucess", box)
+                    showReaction("success", box)
                 })
             } 
         nb++            
