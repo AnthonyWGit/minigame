@@ -24,9 +24,22 @@ function showReaction(type, clickedBox)             //Here were create a functio
 }
 var mode
 var difficulte
+var highScore
+let nb = 1
 const easy = "easy"
 const intermediate = "intermediate"
 const hard = "hard"
+const easyButton = document.querySelector("#easy")  
+const intermediateButton = document.querySelector("#intermediate") 
+const hardButton = document.querySelector("#hard") 
+const highScoreMode = document.querySelector("#highScoreMode")
+const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
+const board = document.querySelector("#board")      /*Declaration of a box constant returning the first element that
+                                                     is descendant of a node matching id #board selector*/
+
+
+mode = easy;
+
 
 do
 {
@@ -34,9 +47,6 @@ do
 }                                                                                           //to a an int.
 while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN, a number greater than 100 or 0 or less it will do what's is in scope above
 
-const easyButton = document.querySelector("#easy")  
-const intermediateButton = document.querySelector("#intermediate") 
-const hardButton = document.querySelector("#hard") 
 easyButton.addEventListener("click",function()
 {
     mode = easy
@@ -52,14 +62,12 @@ hardButton.addEventListener("click",function()
     mode = hard
     console.log("520")
 })
-mode = easy;
-const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
+highScoreMode.addEventListener("click",function()
+{
+    highScore = on;
+})
+
 box.classList.add("box");                       //we manipulate the list of class of constant box (which is empty) and add a new "box" class
-
-const board = document.querySelector("#board")      /*Declaration of a box constant returning the first element that
-                                                     is descendant of a node matching id #board selector*/
-
-let nb = 1
 
                                     //board.appendChild(box) // Every node matching #board id has a child called constant box now. (The one above !)
                                     //box.innerText = 1 //int 1 is added in our <div class="box"></div> box
@@ -114,6 +122,7 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
 }
 
 
+
 // 
 /*for (let i = 1; i <= 10; i++)
 {
@@ -122,9 +131,6 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
     board.appendChild(box)                  *******
 }
 */
-
-
-
 
 shuffleChildren(board)                              //function is called to display to board and so all the elements in it will appear as well
 
