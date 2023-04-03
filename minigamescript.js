@@ -7,7 +7,7 @@ function shuffleChildren(parent)
     {
         k = Math.floor(Math.random() * (i+1))   // store in k the greatest int less than or equal to a random number between 0 and 1 times i+1
         temp = children[k]                      // temp gives k postition in board
-        children[k] = children[i]               //k position in board is replaced by i position in the same board
+        children[k] = children[i]               //k position in array board is replaced by i position in the same array board
         parent.appendChild(temp)                // Node temp is added to board 
     }    
 }
@@ -27,11 +27,6 @@ var difficulte
 const easy = "easy"
 const intermediate = "intermediate"
 const hard = "hard"
-function setMode(difficulte)
-{
-    mode = difficulte;
-}
-
 
 do
 {
@@ -79,6 +74,7 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
     {
         if (i == nb)                                //The player has to click the number 1 first, then 2, etc.
         {
+        mode == hard ? shuffleChildren(board): console.log("HARDE");               
         console.log("Boîte n°"+i+",  click !")      //Display "boite n°i, click !" in console
         newbox.classList.add("box-valid") 
                                            //add the class "box-valid" when clicked            
@@ -92,7 +88,7 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
                 })
             } 
         nb++    
-        mode == hard ? shuffleChildren(board): console.log("HARDE");           //When hard mode is activated shuffle the board each time the click is valid          
+        //When hard mode is activated shuffle the board each time the click is valid          
         }
         //2 
         else if (nb < i)                            //The case when the player hits a higher number than the one he's supposed to click.
