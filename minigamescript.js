@@ -11,7 +11,17 @@ function shuffleChildren(parent)
         parent.appendChild(temp)                // Node temp is added to board 
     }    
 }
-
+function showReaction(type, clickedBox)             //Here were create a function with two parameters of any type that will replace our basic alerts
+{                                                   //When the game is NOT a success call a limited function of 800 milisecs
+    clickedBox.classList.add(type)                  
+    if (type !== "success")
+    {
+        setTimeout(function()
+        {
+            clickedBox.classList.remove(type)       //It will remove the box error and the box notice divs
+        }, 800)
+    }
+}
 do
 {
     var aNumber = parseInt(window.prompt("Please enter a number from 1 to 100", ""), 10);   //prompt always return a string so we use parseInt to convert it
@@ -42,12 +52,13 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
         newbox.classList.add("box-valid")            //add the class "box-valid" when clicked            
             //1
             if (nb == board.children.length)        //The case when the player wins.
-            {                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
+            {
+                alert("You win !")                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
                 board.querySelectorAll(".box").forEach(function(box) //
                 {
                     showReaction("sucess", box)
                 })
-            }
+            } 
         nb++            
         }
         //2 
@@ -58,6 +69,7 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
             board.querySelectorAll(".box-valid").forEach(function(validBox)
             {
                 validBox.classList.remove("box-valid")
+                shuffleChildren(board)  //Shuffles the board again when the player is wrong
             })
         }
         //3
@@ -68,17 +80,7 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
     })
 }
 
-function showReaction(type, clickedBox)             //Here were create a function with two parameters of any type that will replace our basic alerts
-{                                                   //When the click is NOT a success call a limited function of 800 milisecs
-    clickedBox.classList.add(type)                  
-    if (type !== "success")
-    {
-        setTimeout(function()
-        {
-            clickedBox.classList.remove(type)       //It will remove the box error and the box notice divs
-        }, 800)
-    }
-}
+
 // 
 /*for (let i = 1; i <= 10; i++)
 {
