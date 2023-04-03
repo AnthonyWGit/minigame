@@ -12,6 +12,7 @@ function shuffleChildren(parent)
     }    
 }
 
+const aNumber = Number(window.prompt("With how many box do you want to play with ?","")); //Upon loading a page the user will give aNumber
 const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
 box.classList.add("box");                       //we manipulate the list of class of constant box (which is empty) and add a new "box" class
 
@@ -22,8 +23,9 @@ let nb = 1
 
                                     //board.appendChild(box) // Every node matching #board id has a child called constant box now. (The one above !)
                                     //box.innerText = 1 //int 1 is added in our <div class="box"></div> box
-for (let i = 1; i <= 10; i++)       //For i starting at 1, excute the code in brackets until i reaches 10, add 1 each time ALL of the 
+for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code in brackets until i reaches 10, add 1 each time ALL of the 
                                     //instructions in the brackets are done 
+                                    //UPDATE : instead of i <= 10 use aNumber so it displays the same number as in the prompt
 {
     const newbox = box.cloneNode()              //Create a newbox variable and give a clone of the node box.
     newbox.innerText = i                        //Inside the newbox variable looking like <div class ="newbox"></div> put i between tags
@@ -81,5 +83,9 @@ function showReaction(type, clickedBox)
     board.appendChild(box)                  *******
 }
 */
+
+
+
+
 shuffleChildren(board)                              //function is called to display to board and so all the elements in it will appear as well
 
