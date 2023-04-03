@@ -12,12 +12,11 @@ function shuffleChildren(parent)
     }    
 }
 
-//Number(window.prompt("With how many box do you want to play with ?","")); //Upon loading a page the user will give aNumber
 do
 {
-    var aNumber = parseInt(window.prompt("Please enter a number from 1 to 100", ""), 10);
-}
-while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);
+    var aNumber = parseInt(window.prompt("Please enter a number from 1 to 100", ""), 10);   //prompt always return a string so we use parseInt to convert it
+}                                                                                           //to a an int.
+while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN, a number greater than 100 or 0 or less it will do what's is in scope above
 const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
 box.classList.add("box");                       //we manipulate the list of class of constant box (which is empty) and add a new "box" class
 
