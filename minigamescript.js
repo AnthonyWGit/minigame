@@ -12,7 +12,12 @@ function shuffleChildren(parent)
     }    
 }
 
-const aNumber = Number(window.prompt("With how many box do you want to play with ?","")); //Upon loading a page the user will give aNumber
+//Number(window.prompt("With how many box do you want to play with ?","")); //Upon loading a page the user will give aNumber
+do
+{
+    var aNumber = parseInt(window.prompt("Please enter a number from 1 to 100", ""), 10);
+}
+while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);
 const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
 box.classList.add("box");                       //we manipulate the list of class of constant box (which is empty) and add a new "box" class
 
@@ -38,8 +43,8 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
         newbox.classList.add("box-valid")            //add the class "box-valid" when clicked            
             //1
             if (nb == board.children.length)        //The case when the player wins.
-            {                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player has won.
-                board.querySelector(".box").forEach(function(box)
+            {                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
+                board.querySelectorAll(".box").forEach(function(box) //
                 {
                     showReaction("sucess", box)
                 })
@@ -64,14 +69,14 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
     })
 }
 
-function showReaction(type, clickedBox)
-{
-    clickedBox.classList.add(type)
+function showReaction(type, clickedBox)             //Here were create a function with two parameters of any type that will replace our basic alerts
+{                                                   //When the click is NOT a success call a limited function of 800 milisecs
+    clickedBox.classList.add(type)                  
     if (type !== "success")
     {
         setTimeout(function()
         {
-            clickedBox.classList.remove(type)
+            clickedBox.classList.remove(type)       //It will remove the box error and the box notice divs
         }, 800)
     }
 }
