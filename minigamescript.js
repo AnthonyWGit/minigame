@@ -23,11 +23,27 @@ function showReaction(type, clickedBox)             //Here were create a functio
         }, 800)
     }
 }
-function removeAllChildNodes(parent) {              //It will remove all children of a parent given node
-    while (parent.firstChild) {
+function removeAllChildNodes(parent)  //It will remove all children of a parent given node
+{             
+    while (parent.firstChild) 
+    {
         parent.removeChild(parent.firstChild);
     }
 }
+function hourglass()
+{
+
+    let minuts = parseInt(time / 60, 10)
+    let seconds = parseInt(time % 60, 10)
+  
+    minuts = minuts < 10 ? "0" + minuts : minuts
+    seconds = seconds < 10 ? "0" + seconds : seconds
+  
+    timer.innerText = minuts + ":" + seconds
+    time = time <= 0 ? 0 : time - 1
+}
+
+
 //___________________________INITALIZATION_________________________________________________________
 var mode
 var difficulte
@@ -40,20 +56,15 @@ const easyButton = document.querySelector("#easy")
 const intermediateButton = document.querySelector("#intermediate") 
 const hardButton = document.querySelector("#hard") 
 const highScoreMode = document.querySelector("#highScoreMode")
-const boxHS = document.createElement("div")
 const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
 const board = document.querySelector("#board")      /*Declaration of a box constant returning the first element that
                                                      is descendant of a node matching id #board selector*/
-
-
 mode = easy;
+const timer = document.querySelector("#timer")
+var time = 600
+const timerDiv = document.createElement("div")
 
-
-do
-{
-    var aNumber = parseInt(window.prompt("Please enter a number from 1 to 100", ""), 10);   //prompt always return a string so we use parseInt to convert it
-}                                                                                           //to a an int.
-while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN, a number greater than 100 or 0 or less it will do what's is in scope above
+//______________________________EVENT LISTENERS BUTTONS_____________________
 
 easyButton.addEventListener("click",function()
 {
@@ -75,14 +86,25 @@ highScoreMode.addEventListener("click",function()       //We need a "standarized
     if (highScore == "off")                             //We can toggle high score mode once before refreshing the page 
     { 
     const boxes = document.querySelectorAll("#board")
+
     removeAllChildNodes(board)                          //Remove all children of board : those are the inital boxes
     console.log(boxes)
     highScore = "on"
     aNumber = 100  
     afficherBoard()        
     shuffleChildren(board)
+    timerDiv.innerHTML = setInterval(hourglass, 1000)
+    document.querySelector("#timer").appendChild(timerDiv)
     }
 })
+//___________________________________LANDING ON PAGE___________________________________________
+do
+{
+    var aNumber = parseInt(window.prompt("Please enter a number from 1 to 100", ""), 10);   //prompt always return a string so we use parseInt to convert it
+}                                                                                           //to a an int.
+while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN, a number greater than 100 or 0 or less it will do what's is in scope above
+//________________________________________________________________________________________________
+
 
 box.classList.add("box")                       //Each box element is given a class "box"
 function afficherBoard()
@@ -137,7 +159,6 @@ function afficherBoard()
         })
     }    
 }
-
 
 
 
