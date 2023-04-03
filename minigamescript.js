@@ -49,6 +49,10 @@ for (let i = 1; i <= 10; i++)       //For i starting at 1, excute the code in br
         {
             showReaction("error",newbox)             //Displays this message and resets the count to one.
             nb = 1
+            board.querySelectorAll(".box-valid").forEach(function(validBox)
+            {
+                validBox.classList.remove("box-valid")
+            })
         }
         //3
         else
