@@ -22,6 +22,16 @@ function showReaction(type, clickedBox)             //Here were create a functio
         }, 800)
     }
 }
+var mode
+var difficulte
+const easy = "easy"
+const intermediate = "intermediate"
+const hard = "hard"
+function setMode(difficulte)
+{
+    mode = difficulte;
+}
+
 
 do
 {
@@ -29,8 +39,25 @@ do
 }                                                                                           //to a an int.
 while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN, a number greater than 100 or 0 or less it will do what's is in scope above
 
-
-
+const easyButton = document.querySelector("#easy")  
+const intermediateButton = document.querySelector("#intermediate") 
+const hardButton = document.querySelector("#hard") 
+easyButton.addEventListener("click",function()
+{
+    mode = easy
+    console.log("20")
+})
+intermediateButton.addEventListener("click",function()
+{
+    mode = intermediate
+    console.log("240")
+})
+hardButton.addEventListener("click",function()
+{
+    mode = hard
+    console.log("520")
+})
+mode = easy;
 const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
 box.classList.add("box");                       //we manipulate the list of class of constant box (which is empty) and add a new "box" class
 
@@ -53,7 +80,8 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
         if (i == nb)                                //The player has to click the number 1 first, then 2, etc.
         {
         console.log("Boîte n°"+i+",  click !")      //Display "boite n°i, click !" in console
-        newbox.classList.add("box-valid")            //add the class "box-valid" when clicked            
+        newbox.classList.add("box-valid") 
+                                           //add the class "box-valid" when clicked            
             //1
             if (nb == board.children.length)        //The case when the player wins.
             {
@@ -63,17 +91,22 @@ for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code 
                     showReaction("success", box)
                 })
             } 
-        nb++            
+        nb++    
+        mode == hard ? shuffleChildren(board): console.log("HARDE");           //When hard mode is activated shuffle the board each time the click is valid          
         }
         //2 
         else if (nb < i)                            //The case when the player hits a higher number than the one he's supposed to click.
         {
             showReaction("error",newbox)             //Displays this message and resets the count to one.
+                if (mode == intermediate || mode == hard) 
+            {
+                shuffleChildren(board)  //Shuffles the board again when the player is wrong
+            }            
             nb = 1
             board.querySelectorAll(".box-valid").forEach(function(validBox)
             {
                 validBox.classList.remove("box-valid")
-                shuffleChildren(board)  //Shuffles the board again when the player is wrong
+
             })
         }
         //3
