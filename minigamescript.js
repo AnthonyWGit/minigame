@@ -41,23 +41,28 @@ function hourglass()
   
     timer.innerText = minuts + ":" + seconds
     time = time <= 0 ? 0 : time - 1
+    return time
 }
 function setEasyMode()
 {
     mode = easy
+    modifierScore = 1
     console.log("20")
+    return modifierScore
 }
 function setIntermediateMode()
 {
     mode = intermediate
     modifierScore = 5 //The higher the difficulty the highter score you get
     console.log("240")
+    return modifierScore
 }
 function setHardMode()
 {
     mode = hard
     modifierScore = 10 //The higher the difficulty the highter score you get
     console.log("520")
+    return modifierScore
 }
 function setHighScore()
 {
@@ -105,6 +110,7 @@ function displayBoard()
                         clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops
                         showReaction("success", box)
                         document.querySelector("#points").appendChild(pointsDiv)
+                        let points = hourglass()
                         pointsDiv.innerHTML = "Yours points : " + points*modifierScore
                         highScore = "off"                                       //Resets the game   
                         nb = 1
@@ -139,10 +145,10 @@ function displayBoard()
 //___________________________INITIALIZATION_________________________________________________________
 var mode                //Easy, intermediate or Hard
 var modifierScore = 1
+let time = 600
 var highScore = "off"
 let nb = 1
 var hourglassID 
-var points = 0
 const easy = "easy"
 const intermediate = "intermediate"
 const hard = "hard"
@@ -155,8 +161,8 @@ const board = document.querySelector("#board")      /*Declaration of a box const
                                                      is descendant of a node matching id #board selector*/
 mode = easy;
 const timer = document.querySelector("#timer")
-var time = 600
-points = time * 2500
+
+points = hourglass * 2500
 const timerDiv = document.createElement("div")
 const pointsDiv = document.createElement("div")
 
