@@ -42,6 +42,22 @@ function hourglass()
     timer.innerText = minuts + ":" + seconds
     time = time <= 0 ? 0 : time - 1
 }
+function setEasyMode()
+{
+    mode = easy
+    console.log("20")
+}
+function setIntermediateMode()
+{
+    mode = intermediate
+    console.log("240")
+}
+function setHardMode()
+{
+    mode = hard
+    console.log("520")
+}
+
 
 
 //___________________________INITIALIZATION_________________________________________________________
@@ -66,21 +82,9 @@ const timerDiv = document.createElement("div")
 
 //______________________________EVENT LISTENERS BUTTONS_____________________
 
-easyButton.addEventListener("click",function()
-{
-    mode = easy
-    console.log("20")
-})
-intermediateButton.addEventListener("click",function()
-{
-    mode = intermediate
-    console.log("240")
-})
-hardButton.addEventListener("click",function()
-{
-    mode = hard
-    console.log("520")
-})
+easyButton.addEventListener("click",setEasyMode)
+intermediateButton.addEventListener("click",setIntermediateMode)
+hardButton.addEventListener("click",setHardMode)
 highScoreMode.addEventListener("click",function()       //We need a "standarized" mode for high scores so it's faire and comptetitive
 {
     if (highScore == "off")                             //We can toggle high score mode once before refreshing the page 
@@ -93,8 +97,11 @@ highScoreMode.addEventListener("click",function()       //We need a "standarized
     aNumber = 100  
     afficherBoard()        
     shuffleChildren(board)
-    timerDiv.innerHTML = setInterval(hourglass, 1000)
-    document.querySelector("#timer").appendChild(timerDiv)
+    timerDiv.innerHTML = setInterval(hourglass, 1000)                       //Each second function hourglass is called
+    document.querySelector("#timer").appendChild(timerDiv)                  //Makes the timer appear
+    easyButton.removeEventListener("click",setEasyMode)                     //For fairness high scores are separated by categories
+    intermediateButton.removeEventListener("click",setIntermediateMode)
+    hardButton.removeEventListener("click",setHardMode)
     }
 })
 //___________________________________LANDING ON PAGE___________________________________________
@@ -161,17 +168,6 @@ function afficherBoard()
 }
 
 
-
-
-
-// 
-/*for (let i = 1; i <= 10; i++)
-{
-    let newbox = box.cloneNode()            *******
-    newbox.innerText = i                    *Garbage code 
-    board.appendChild(box)                  *******
-}
-*/
 afficherBoard()
 shuffleChildren(board)                              //function is called to display to board and so all the elements in it will appear as well
 
