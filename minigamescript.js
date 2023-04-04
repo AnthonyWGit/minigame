@@ -50,31 +50,32 @@ function setEasyMode()
 function setIntermediateMode()
 {
     mode = intermediate
+    modifierScore = 5 //The higher the difficulty the highter score you get
     console.log("240")
 }
 function setHardMode()
 {
     mode = hard
-    modifierScore = 45
+    modifierScore = 10 //The higher the difficulty the highter score you get
     console.log("520")
 }
 function setHighScore()
 {
     if (highScore == "off")                             //We can toggle high score mode once before refreshing the page 
     { 
-    hourglassID = setInterval(hourglass,1000)
-    const boxes = document.querySelectorAll("#board")
-    removeAllChildNodes(board)                          //Remove all children of board : those are the inital boxes
-    console.log(boxes)
-    highScore = "on"
-    aNumber = 10  
-    displayBoard()        
-    shuffleChildren(board)                 
-    timerDiv.innerHTML = hourglassID                                        //Each second function hourglass is called
-    document.querySelector("#timer").appendChild(timerDiv)                  //Makes the timer appear
-    easyButton.removeEventListener("click",setEasyMode)                     //For fairness high scores are separated by categories
-    intermediateButton.removeEventListener("click",setIntermediateMode)
-    hardButton.removeEventListener("click",setHardMode)
+        hourglassID = setInterval(hourglass,1000)
+        const boxes = document.querySelectorAll("#board")
+        removeAllChildNodes(board)                          //Remove all children of board : those are the inital boxes
+        console.log(boxes)
+        highScore = "on"
+        aNumber = 10  
+        displayBoard()        
+        shuffleChildren(board)                 
+        timerDiv.innerHTML = hourglassID                                        //Each second function hourglass is called
+        document.querySelector("#timer").appendChild(timerDiv)                  //Makes the timer appear
+        easyButton.removeEventListener("click",setEasyMode)                     //For fairness high scores are separated by categories
+        intermediateButton.removeEventListener("click",setIntermediateMode)
+        hardButton.removeEventListener("click",setHardMode)
     }
 }
 function displayBoard()
@@ -104,8 +105,9 @@ function displayBoard()
                         clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops
                         showReaction("success", box)
                         document.querySelector("#points").appendChild(pointsDiv)
-                        pointsDiv.innerHTML = "Vos points : " + points 
-                        highScore = "off"
+                        pointsDiv.innerHTML = "Vos points : " + points*modifierScore
+                        highScore = "off"                                       //Resets the game   
+                        nb = 1
                     })
                 } 
             nb++    
@@ -136,7 +138,7 @@ function displayBoard()
 }
 //___________________________INITIALIZATION_________________________________________________________
 var mode                //Easy, intermediate or Hard
-var modifierScore
+var modifierScore = 1
 var highScore = "off"
 let nb = 1
 var hourglassID 
