@@ -97,7 +97,9 @@ const board = document.querySelector("#board")      /*Declaration of a box const
 mode = easy;
 const timer = document.querySelector("#timer")
 var time = 600
+points = time * 2500
 const timerDiv = document.createElement("div")
+const pointsDiv = document.createElement("div")
 
 //______________________________EVENT LISTENERS BUTTONS_____________________
 
@@ -109,8 +111,7 @@ highScoreMode.addEventListener("click",setHighScore)      //We need a "standariz
 //___________________________________LANDING ON PAGE___________________________________________
 do
 {
-    var aNumber = parseInt(window.prompt("Please enter a number from 1 to 100", ""), 10);
-    clearInterval(hourglassID)   //prompt always return a string so we use parseInt to convert it
+    var aNumber = parseInt(window.prompt("Please enter a number from 1 to 100", ""), 10);     //prompt always return a string so we use parseInt to convert it
 }                                                                                           //to a an int.
 while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN, a number greater than 100 or 0 or less it will do what's is in scope above
 //________________________________________________________________________________________________
@@ -143,6 +144,8 @@ function displayBoard()
                     {
                         clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops
                         showReaction("success", box)
+                        document.querySelector("#points").appendChild(pointsDiv)
+                        pointsDiv.innerHTML = "Vos points : " + points 
                     })
                 } 
             nb++    
