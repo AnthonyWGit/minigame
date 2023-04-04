@@ -105,7 +105,7 @@ function displayBoard()
                         clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops
                         showReaction("success", box)
                         document.querySelector("#points").appendChild(pointsDiv)
-                        pointsDiv.innerHTML = "Vos points : " + points*modifierScore
+                        pointsDiv.innerHTML = "Yours points : " + points*modifierScore
                         highScore = "off"                                       //Resets the game   
                         nb = 1
                     })
