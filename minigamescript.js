@@ -55,6 +55,7 @@ function setIntermediateMode()
 function setHardMode()
 {
     mode = hard
+    modifierScore = 45
     console.log("520")
 }
 function setHighScore()
@@ -76,10 +77,66 @@ function setHighScore()
     hardButton.removeEventListener("click",setHardMode)
     }
 }
+function displayBoard()
+{
+                                        //board.appendChild(box) // Every node matching #board id has a child called box now. (The one above !)
+                                        //box.innerText = 1 //int 1 is added in our <div class="box"></div> box
+    for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code in brackets until i reaches 10, add 1 each time ALL of the 
+    {
+        var localHourglassID = hourglassID
+        const newbox = box.cloneNode()              //Create a const newbox and it takes the same properties as the node box
+        newbox.innerText = i                        //Inside the newbox variable looking like <div class ="newbox"></div> put i between tags
+        board.appendChild(newbox)                   //To display the new boxes we have to appen the new node newbox to the parent node board
+        newbox.addEventListener("click",function() //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
+        {
+            if (i == nb)                                                    //The player has to click the number 1 first, then 2, etc.
+            {
+            mode == hard ? shuffleChildren(board): console.log("HARDE");     //When hard mode is activated shuffle the board each time the click is valid                 
+            console.log("Boxle n°"+i+",  click !")      //Display "boxle n°i, click !" in console
+            newbox.classList.add("box-valid")           //add the class "box-valid" when clicked        
+                                                                                
+                //1
+                if (nb == board.children.length)                             //The case when the player wins.
+                {
+                    alert("You win !")                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
+                    board.querySelectorAll(".box").forEach(function(box)     //Select all "box" class 
+                    {
+                        clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops
+                        showReaction("success", box)
+                        document.querySelector("#points").appendChild(pointsDiv)
+                        pointsDiv.innerHTML = "Vos points : " + points 
+                        highScore = "off"
+                    })
+                } 
+            nb++    
+            
+            }
+            //2 
+            else if (nb < i)                            //The case when the player hits a higher number than the one he's supposed to click.
+            {
+                showReaction("error",newbox)             //Displays this message and resets the count to one.
+                    if (mode == intermediate || mode == hard) 
+                {
+                    shuffleChildren(board)  //Shuffles the board again when the player is wrong
+                }            
+                nb = 1
+                board.querySelectorAll(".box-valid").forEach(function(validBox)
+                {
+                    validBox.classList.remove("box-valid")
 
+                })
+            }
+            //3
+            else
+            {
+                showReaction("notice",newbox)
+            }
+        })
+    }    
+}
 //___________________________INITIALIZATION_________________________________________________________
-var mode
-var difficulte
+var mode                //Easy, intermediate or Hard
+var modifierScore
 var highScore = "off"
 let nb = 1
 var hourglassID 
@@ -118,61 +175,6 @@ while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN
 
 
 box.classList.add("box")                       //Each box element is given a class "box"
-function displayBoard()
-{
-                                        //board.appendChild(box) // Every node matching #board id has a child called box now. (The one above !)
-                                        //box.innerText = 1 //int 1 is added in our <div class="box"></div> box
-    for (let i = 1; i <= aNumber; i++)       //For i starting at 1, excute the code in brackets until i reaches 10, add 1 each time ALL of the 
-    {
-        var localHourglassID = hourglassID
-        const newbox = box.cloneNode()              //Create a const newbox and it takes the same properties as the node box
-        newbox.innerText = i                        //Inside the newbox variable looking like <div class ="newbox"></div> put i between tags
-        board.appendChild(newbox)                   //To display the new boxes we have to appen the new node newbox to the parent node board
-        newbox.addEventListener("click",function() //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
-        {
-            if (i == nb)                                                    //The player has to click the number 1 first, then 2, etc.
-            {
-            mode == hard ? shuffleChildren(board): console.log("HARDE");     //When hard mode is activated shuffle the board each time the click is valid                 
-            console.log("Boxle n°"+i+",  click !")      //Display "boxle n°i, click !" in console
-            newbox.classList.add("box-valid")           //add the class "box-valid" when clicked        
-                                                                                
-                //1
-                if (nb == board.children.length)                             //The case when the player wins.
-                {
-                    alert("You win !")                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
-                    board.querySelectorAll(".box").forEach(function(box)     //Select all "box" class 
-                    {
-                        clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops
-                        showReaction("success", box)
-                        document.querySelector("#points").appendChild(pointsDiv)
-                        pointsDiv.innerHTML = "Vos points : " + points 
-                    })
-                } 
-            nb++    
-            
-            }
-            //2 
-            else if (nb < i)                            //The case when the player hits a higher number than the one he's supposed to click.
-            {
-                showReaction("error",newbox)             //Displays this message and resets the count to one.
-                    if (mode == intermediate || mode == hard) 
-                {
-                    shuffleChildren(board)  //Shuffles the board again when the player is wrong
-                }            
-                nb = 1
-                board.querySelectorAll(".box-valid").forEach(function(validBox)
-                {
-                    validBox.classList.remove("box-valid")
 
-                })
-            }
-            //3
-            else
-            {
-                showReaction("notice",newbox)
-            }
-        })
-    }    
-}
 displayBoard()
 shuffleChildren(board)                              //function is called to display to board and so all the elements in it will appear as well
