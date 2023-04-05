@@ -110,8 +110,10 @@ function displayBoard()
                 })
                 clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops                 
                 document.querySelector("#points").appendChild(pointsDiv)
-                let points = hourglass()
+                let points = hourglass()                                        //hourglass returns time
                 pointsDiv.innerHTML = "Yours points : " + points*modifierScore
+                const newLeaderboarLi = leaderboardLi.cloneNode()
+                leaderboards.appendChild(newLeaderboarLi).innerHTML = "Old Score :"+ points*modifierScore
                 highScore = "off"                                       //Resets the game   
                 time = 600         
                 nb = 0
@@ -165,9 +167,11 @@ const board = document.querySelector("#board")      /*Declaration of a box const
                                                      is descendant of a node matching id #board selector*/
 mode = easy
 const timer = document.querySelector("#timer")
+const leaderboards = document.querySelector("#leaderboards")
 points = hourglass * 2500
 const timerDiv = document.createElement("div")
 const pointsDiv = document.createElement("div")
+const leaderboardLi = document.createElement("li")
 
 //______________________________EVENT LISTENERS BUTTONS_____________________
 
