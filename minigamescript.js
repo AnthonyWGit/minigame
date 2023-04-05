@@ -32,7 +32,6 @@ function removeAllChildNodes(parent)  //It will remove all children of a parent 
 }
 function hourglass()
 {
-
     let minuts = parseInt(time / 60, 10)                    //1 minute is made of 60 seconds 
     let seconds = parseInt(time % 60, 10)                   //Seconds are the remainders of the division of time/60 : so we use modulo sign % 
   
@@ -143,7 +142,7 @@ function displayBoard()
             {
 
             }
-        })                                             //We won't be able to click again after all boxes are clicked
+        })                                             
     }    
 }
 //___________________________INITIALIZATION_________________________________________________________
@@ -153,7 +152,7 @@ let time = 600
 var highScore = "off"
 let nb = 1
 var hourglassID 
-let gameEnded = false
+let gameEnded = false//We won't be able to click again after all boxes are clicked
 const easy = "easy"
 const intermediate = "intermediate"
 const hard = "hard"
