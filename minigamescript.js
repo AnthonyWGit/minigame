@@ -53,14 +53,14 @@ function setEasyMode()
 function setIntermediateMode()
 {
     mode = intermediate
-    modifierScore = 5 //The higher the difficulty the highter score you get
+    modifierScore = 25 //The higher the difficulty the highter score you get
     console.log("240")
     return modifierScore
 }
 function setHardMode()
 {
     mode = hard
-    modifierScore = 10 //The higher the difficulty the highter score you get
+    modifierScore = 100 //The higher the difficulty the highter score you get
     console.log("520")
     return modifierScore
 }
@@ -107,15 +107,15 @@ function displayBoard()
                     alert("You win !")                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
                     board.querySelectorAll(".box").forEach(function(box)     //Select all "box" class 
                     {
-                        nb = 0
+                       
                         clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops
                         showReaction("success", box)
                         document.querySelector("#points").appendChild(pointsDiv)
                         let points = hourglass()
                         pointsDiv.innerHTML = "Yours points : " + points*modifierScore
                         highScore = "off"                                       //Resets the game   
-                        time = 600
-                    
+                        time = 600         
+                        nb = 0      
                     })
                 } 
                 nb++           
@@ -160,9 +160,8 @@ const highScoreMode = document.querySelector("#highScoreMode")
 const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
 const board = document.querySelector("#board")      /*Declaration of a box constant returning the first element that
                                                      is descendant of a node matching id #board selector*/
-mode = easy;
+mode = easy
 const timer = document.querySelector("#timer")
-
 points = hourglass * 2500
 const timerDiv = document.createElement("div")
 const pointsDiv = document.createElement("div")
@@ -184,6 +183,5 @@ while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN
 
 
 box.classList.add("box")                       //Each box element is given a class "box"
-
 displayBoard()
 shuffleChildren(board)                              //function is called to display to board and so all the elements in it will appear as well
