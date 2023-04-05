@@ -81,7 +81,7 @@ function setHighScore()
         easyButton.removeEventListener("click",setEasyMode)                     //For fairness high scores are separated by categories
         intermediateButton.removeEventListener("click",setIntermediateMode)
         hardButton.removeEventListener("click",setHardMode)
-  
+        gameEnded = false                                                       //The game is replayable each time it is completed and player click high scores 
     }
 }        
 function displayBoard()
@@ -94,13 +94,13 @@ function displayBoard()
         const newbox = box.cloneNode()              //Create a const newbox and it takes the same properties as the node box
         newbox.innerText = i                        //Inside the newbox variable looking like <div class ="newbox"></div> put i between tags
         board.appendChild(newbox)                   //To display the new boxes we have to appen the new node newbox to the parent node board
-        newbox.addEventListener("click",function () //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
+        newbox.addEventListener("click",function()  //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
         {
-            if (i == nb)                                                    //The player has to click the number 1 first, then 2, etc.
+            if (i == nb && gameEnded == false)                                                    //The player has to click the number 1 first, then 2, etc.
             {
-            mode == hard ? shuffleChildren(board): console.log("HARDE");     //When hard mode is activated shuffle the board each time the click is valid                 
-            console.log("Boxle n°"+i+",  click !")      //Display "boxle n°i, click !" in console
-            newbox.classList.add("box-valid")           //add the class "box-valid" when clicked                                                                                    
+            mode == hard ? shuffleChildren(board): console.log("HARDE");        //When hard mode is activated shuffle the board each time the click is valid                 
+            console.log("Boxle n°"+i+",  click !")                              //Display "boxle n°i, click !" in console
+            newbox.classList.add("box-valid")                                   //add the class "box-valid" when clicked                                                                                    
                 //1
                 if (nb == board.children.length)                             //The case when the player wins.
                 {
@@ -116,11 +116,12 @@ function displayBoard()
                 highScore = "off"                                       //Resets the game   
                 time = 600         
                 nb = 0
+                gameEnded = true
                 } 
             nb++           
             }
             //2 
-            else if (nb < i)                            //The case when the player hits a higher number than the one he's supposed to click.
+            else if (nb < i && gameEnded == false)                            //The case when the player hits a higher number than the one he's supposed to click.
             {
                 showReaction("error",newbox)             //Displays this message and resets the count to one.
                     if (mode == intermediate || mode == hard) 
@@ -128,17 +129,21 @@ function displayBoard()
                     shuffleChildren(board)  //Shuffles the board again when the player is wrong
                 }            
                 nb = 1
-                board.querySelectorAll(".box-valid").forEach(function(validBox)
+                board.querySelectorAll(".box-valid").forEach(function(validBox)     //Selecting all box-valid on board and for each of them
                 {
-                    validBox.classList.remove("box-valid")
+                    validBox.classList.remove("box-valid")                          // ...remove the class
                 })
             }
             //3
-            else
+            else if (gameEnded == false)
             {
                 showReaction("notice",newbox)
             }
-        }, {once: true});
+            else
+            {
+
+            }
+        })                                             //We won't be able to click again after all boxes are clicked
     }    
 }
 //___________________________INITIALIZATION_________________________________________________________
@@ -148,6 +153,7 @@ let time = 600
 var highScore = "off"
 let nb = 1
 var hourglassID 
+let gameEnded = false
 const easy = "easy"
 const intermediate = "intermediate"
 const hard = "hard"
