@@ -33,15 +33,15 @@ function removeAllChildNodes(parent)  //It will remove all children of a parent 
 function hourglass()
 {
 
-    let minuts = parseInt(time / 60, 10)
-    let seconds = parseInt(time % 60, 10)
+    let minuts = parseInt(time / 60, 10)                    //1 minute is made of 60 seconds 
+    let seconds = parseInt(time % 60, 10)                   //Seconds are the remainders of the division of time/60 : so we use modulo sign % 
   
-    minuts = minuts < 10 ? "0" + minuts : minuts
-    seconds = seconds < 10 ? "0" + seconds : seconds
+    minuts = minuts < 10 ? "0" + minuts : minuts            //Display format: We want to display minuts with two numbers
+    seconds = seconds < 10 ? "0" + seconds : seconds        //Display format : same as comment above
   
-    timer.innerText = minuts + ":" + seconds
-    time = time <= 0 ? 0 : time - 1
-    return time
+    timer.innerText = minuts + ":" + seconds                //there  display the timer in the timer divs
+    time = time <= 0 ? 0 : time - 1                         //Checking so we can't go below 0
+    return time                                             //Return so we can get the time value back
 }
 function setEasyMode()
 {
