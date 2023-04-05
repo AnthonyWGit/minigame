@@ -83,6 +83,10 @@ function setHighScore()
         gameEnded = false                                                       //The game is replayable each time it is completed and player click high scores 
     }
 }        
+function sortNumericalDescending
+{
+
+}
 function displayBoard()
 {
                                         //board.appendChild(box) // Every node matching #board id has a child called box now. (The one above !)
@@ -114,6 +118,7 @@ function displayBoard()
                 pointsDiv.innerHTML = "Yours points : " + points*modifierScore
                 const newLeaderboarLi = leaderboardLi.cloneNode()               //Cloning nodes so we can add more li items
                 leaderboards.appendChild(newLeaderboarLi).innerHTML = "Old Score :"+ points*modifierScore
+                newLeaderboarLi.classList.add("highrank")
                 highScore = "off"                                       //Resets the game : timer is reset, nb=0 because it will turn 1 because of nb++
                 time = 600         
                 nb = 0
@@ -155,6 +160,10 @@ var highScore = "off"
 let nb = 1
 var hourglassID 
 let gameEnded = false//We won't be able to click again after all boxes are clicked
+const descendingOrder = false
+const collator = new Intl.Collator(undefined, {numeric: isNumeric, sensitivity: 'base'})
+const highRankings = [...document.querySelectorAll("highrank")]
+const parentHighRankings = elements[0].parentNode
 const easy = "easy"
 const intermediate = "intermediate"
 const hard = "hard"
