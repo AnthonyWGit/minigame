@@ -112,12 +112,12 @@ function displayBoard()
                 document.querySelector("#points").appendChild(pointsDiv)
                 let points = hourglass()                                        //hourglass returns time
                 pointsDiv.innerHTML = "Yours points : " + points*modifierScore
-                const newLeaderboarLi = leaderboardLi.cloneNode()
+                const newLeaderboarLi = leaderboardLi.cloneNode()               //Cloning nodes so we can add more li items
                 leaderboards.appendChild(newLeaderboarLi).innerHTML = "Old Score :"+ points*modifierScore
-                highScore = "off"                                       //Resets the game   
+                highScore = "off"                                       //Resets the game : timer is reset, nb=0 because it will turn 1 because of nb++
                 time = 600         
                 nb = 0
-                gameEnded = true
+                gameEnded = true                                        //Condition so we can't click on the boxes after completing the game
                 } 
             nb++           
             }
