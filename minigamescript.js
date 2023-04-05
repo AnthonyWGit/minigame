@@ -107,17 +107,19 @@ function displayBoard()
                     alert("You win !")                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
                     board.querySelectorAll(".box").forEach(function(box)     //Select all "box" class 
                     {
+                        nb = 0
                         clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops
                         showReaction("success", box)
                         document.querySelector("#points").appendChild(pointsDiv)
                         let points = hourglass()
                         pointsDiv.innerHTML = "Yours points : " + points*modifierScore
                         highScore = "off"                                       //Resets the game   
-                        nb = 1
+                        time = 600
+                    
                     })
                 } 
-            nb++    
-            
+                nb++           
+    
             }
             //2 
             else if (nb < i)                            //The case when the player hits a higher number than the one he's supposed to click.
@@ -131,7 +133,6 @@ function displayBoard()
                 board.querySelectorAll(".box-valid").forEach(function(validBox)
                 {
                     validBox.classList.remove("box-valid")
-
                 })
             }
             //3
