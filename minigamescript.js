@@ -81,8 +81,9 @@ function setHighScore()
         easyButton.removeEventListener("click",setEasyMode)                     //For fairness high scores are separated by categories
         intermediateButton.removeEventListener("click",setIntermediateMode)
         hardButton.removeEventListener("click",setHardMode)
+  
     }
-}
+}        
 function displayBoard()
 {
                                         //board.appendChild(box) // Every node matching #board id has a child called box now. (The one above !)
@@ -93,33 +94,31 @@ function displayBoard()
         const newbox = box.cloneNode()              //Create a const newbox and it takes the same properties as the node box
         newbox.innerText = i                        //Inside the newbox variable looking like <div class ="newbox"></div> put i between tags
         board.appendChild(newbox)                   //To display the new boxes we have to appen the new node newbox to the parent node board
-        newbox.addEventListener("click",function() //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
+        newbox.addEventListener("click",function game() //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
         {
             if (i == nb)                                                    //The player has to click the number 1 first, then 2, etc.
             {
             mode == hard ? shuffleChildren(board): console.log("HARDE");     //When hard mode is activated shuffle the board each time the click is valid                 
             console.log("Boxle n°"+i+",  click !")      //Display "boxle n°i, click !" in console
-            newbox.classList.add("box-valid")           //add the class "box-valid" when clicked        
-                                                                                
+            newbox.classList.add("box-valid")           //add the class "box-valid" when clicked                                                                                    
                 //1
                 if (nb == board.children.length)                             //The case when the player wins.
                 {
-                    alert("You win !")                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
-                    board.querySelectorAll(".box").forEach(function(box)     //Select all "box" class 
-                    {
-                       
-                        clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops
-                        showReaction("success", box)
-                        document.querySelector("#points").appendChild(pointsDiv)
-                        let points = hourglass()
-                        pointsDiv.innerHTML = "Yours points : " + points*modifierScore
-                        highScore = "off"                                       //Resets the game   
-                        time = 600         
-                        nb = 0      
-                    })
+                alert("You win !")                                       //It checks if nb is egal to the numbers of boxes. When it is, it means the player wins.
+                board.querySelectorAll(".box").forEach(function(box)     //Select all "box" class and do showReaction forr each box
+                {             
+                    showReaction("success", box)  
+                })
+                clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops                 
+                document.querySelector("#points").appendChild(pointsDiv)
+                let points = hourglass()
+                pointsDiv.innerHTML = "Yours points : " + points*modifierScore
+                highScore = "off"                                       //Resets the game   
+                time = 600         
+                nb = 0
+                this.removeEventListener("click", game)
                 } 
-                nb++           
-    
+            nb++           
             }
             //2 
             else if (nb < i)                            //The case when the player hits a higher number than the one he's supposed to click.
