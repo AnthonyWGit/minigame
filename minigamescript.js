@@ -94,7 +94,7 @@ function displayBoard()
         const newbox = box.cloneNode()              //Create a const newbox and it takes the same properties as the node box
         newbox.innerText = i                        //Inside the newbox variable looking like <div class ="newbox"></div> put i between tags
         board.appendChild(newbox)                   //To display the new boxes we have to appen the new node newbox to the parent node board
-        newbox.addEventListener("click",function game() //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
+        newbox.addEventListener("click",function () //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
         {
             if (i == nb)                                                    //The player has to click the number 1 first, then 2, etc.
             {
@@ -116,7 +116,6 @@ function displayBoard()
                 highScore = "off"                                       //Resets the game   
                 time = 600         
                 nb = 0
-                this.removeEventListener("click", game)
                 } 
             nb++           
             }
@@ -139,7 +138,7 @@ function displayBoard()
             {
                 showReaction("notice",newbox)
             }
-        })
+        }, {once: true});
     }    
 }
 //___________________________INITIALIZATION_________________________________________________________
