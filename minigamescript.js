@@ -68,14 +68,12 @@ function setHighScore()
     if (highScore == "off")                             //We can toggle high score mode once before refreshing the page 
     { 
         hourglassID = setInterval(hourglass,1000)
-        const boxes = document.querySelectorAll("#board")
+        timerDiv.innerHTML = hourglassID                                        //Each second function hourglass is called    
         removeAllChildNodes(board)                          //Remove all children of board : those are the inital boxes
-        console.log(boxes)
         highScore = "on"                                    //Highscore mode enabled
         aNumber = 10  
         displayBoard()        
         shuffleChildren(board)                 
-        timerDiv.innerHTML = hourglassID                                        //Each second function hourglass is called
         document.querySelector("#timer").appendChild(timerDiv)                  //Makes the timer appear
         easyButton.removeEventListener("click",setEasyMode)                     //For fairness high scores are separated by categories
         intermediateButton.removeEventListener("click",setIntermediateMode)
@@ -136,78 +134,81 @@ function displayBoard()
                 board.querySelectorAll(".box").forEach(function(box)     //Select all "box" class and do showReaction forr each box
                 {             
                     showReaction("success", box)  
-                })             
-                clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops                 
-                document.querySelector("#points").appendChild(pointsDiv)
-                let points = (hourglass() * 2500)                                       //hourglass returns time, biggers points are cooler
-                pointsArray.unshift(points*modifierScore)                       //Add the new score in the pointsArray array in index 0 
-                pointsDiv.innerHTML = "Yours points : " + points*modifierScore
-                const newLeaderboarLi = leaderboardLi.cloneNode()               //Cloning nodes so we can add more li items
-                const newTopScoresLi = topScoresLi.cloneNode()
-                leaderboards.appendChild(newLeaderboarLi).innerHTML = "Old Score :"+ points*modifierScore   //Put a remainder of the score got last game
-                topScoresCount += 1                     
-                pointsArray.sort(function(a, b){return b-a})                                    //See w3 doc : sorting array in descending order  
-                if (topScoresCount == 1)                                                        //Case when the player only played once
+                })
+                if (highScore == "on")         
                 {
-                    if (pointsArray.length == 1)                                                //Force this display when there is only on high score
-                    {                                                                           //This means this is the Arst time the game is played
-                        removeAllChildNodes(topScores)         
-                        topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
-                    }
-                    else if (pointsArray.length == 2)
+                    clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops                 
+                    document.querySelector("#points").appendChild(pointsDiv)
+                    let points = (hourglass() * 2500)                                       //hourglass returns time, biggers points are cooler
+                    pointsArray.unshift(points*modifierScore)                       //Add the new score in the pointsArray array in index 0 
+                    pointsDiv.innerHTML = "Yours points : " + points*modifierScore
+                    const newLeaderboarLi = leaderboardLi.cloneNode()               //Cloning nodes so we can add more li items
+                    const newTopScoresLi = topScoresLi.cloneNode()
+                    leaderboards.appendChild(newLeaderboarLi).innerHTML = "Old Score :"+ points*modifierScore   //Put a remainder of the score got last game
+                    topScoresCount += 1                     
+                    pointsArray.sort(function(a, b){return b-a})                                    //See w3 doc : sorting array in descending order  
+                    if (topScoresCount == 1)                                                        //Case when the player only played once
                     {
-                        removeAllChildNodes(topScores) 
-                        const newTopScoresLi2 = newTopScoresLi.cloneNode()               
-                        topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
-                        topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
+                        if (pointsArray.length == 1)                                                
+                        {                                                                           //This means this is the 1rst time the game is played
+                            removeAllChildNodes(topScores)                                          //Because the imported array was empty and we did unshift above
+                            topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                        }
+                        else if (pointsArray.length == 2)                                               //Force this display when there is only on high score stored
+                        {
+                            removeAllChildNodes(topScores) 
+                            const newTopScoresLi2 = newTopScoresLi.cloneNode()               
+                            topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                            topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
+                        }
+                        else                                                                            //This covers when player has already 2 high scores stored
+                        {                                                                               //and more 
+                            removeAllChildNodes(topScores) 
+                            const newTopScoresLi2 = newTopScoresLi.cloneNode()            
+                            const newTopScoresLi3 = newTopScoresLi.cloneNode()      
+                            topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                            topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
+                            topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]                             
+                        }
                     }
-                    else 
-                    {
-                        removeAllChildNodes(topScores) 
-                        const newTopScoresLi2 = newTopScoresLi.cloneNode()            
-                        const newTopScoresLi3 = newTopScoresLi.cloneNode()      
-                        topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
-                        topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
-                        topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]                             
-                    }
-                }
-                else if (topScoresCount == 2)                                                   //case when the played has played twice
-                {     
+                    else if (topScoresCount == 2)                                                   //case when the played has played twice 
+                    {     
 
-                    if (pointsArray.length == 2)
-                    {
-                        removeAllChildNodes(topScores)       
-                        const newTopScoresLi2 = newTopScoresLi.cloneNode()            
-                        topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
-                        topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
-                    }
-                    else
-                    {
-                        removeAllChildNodes(topScores)       
-                        const newTopScoresLi2 = newTopScoresLi.cloneNode()      
-                        const newTopScoresLi3 = newTopScoresLi.cloneNode()        
-                        topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
-                        topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]         
-                        topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]               
+                        if (pointsArray.length == 2)                                                //case when the player has played twice and has no local scores
+                        {
+                            removeAllChildNodes(topScores)       
+                            const newTopScoresLi2 = newTopScoresLi.cloneNode()            
+                            topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                            topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
+                        }
+                        else
+                        {
+                            removeAllChildNodes(topScores)       
+                            const newTopScoresLi2 = newTopScoresLi.cloneNode()      
+                            const newTopScoresLi3 = newTopScoresLi.cloneNode()        
+                            topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                            topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]         
+                            topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]               
                     }
                 }
                 else if(topScoresCount == 3)                                                    //Case when the player has played thrice or more
                 {                                                                               //We display the leaderboards and they will refresh
                                                                                                 //the next time the player refreshes the game.
-                    removeAllChildNodes(topScores)                                              //We have to clean the old leaderboards in 1 and 2 cases
-                    const newTopScoresLi2 = newTopScoresLi.cloneNode()                          //Then clone new nodes to make them appear
+                    removeAllChildNodes(topScores)                                              //Remove nodes to create new updated ones
+                    const newTopScoresLi2 = newTopScoresLi.cloneNode()                          //
                     const newTopScoresLi3 = newTopScoresLi.cloneNode()                          
                     topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                     topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
                     topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]
                 }             
-                window.localStorage.setItem("imported", JSON.stringify(pointsArray.slice(0,3))) //Exporting highscores in localstorage
+                window.localStorage.setItem("imported", JSON.stringify(pointsArray.slice(0,3))) //Exporting highscores in localstorage : on the 3 best
                 newLeaderboarLi.classList.add("highrank")               //Add nothing is the display for now
                 highScore = "off"                                       //Resets the game : timer is reset, nb=0 because it will turn 1 because of nb++
                 time = 600         
+                }
                 nb = 0
-                gameEnded = true                                        //Condition so we can't click on the boxes after completing the game
-                } 
+                gameEnded = true                                        //Condition so we can't click on the boxes after completing the game                                     
+            }    
             nb++                                                        //after a success player needs to click +1 higher number box
             }
             //2 
