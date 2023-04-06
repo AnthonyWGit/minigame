@@ -110,7 +110,7 @@ function displayBoard()
                 })             
                 clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops                 
                 document.querySelector("#points").appendChild(pointsDiv)
-                let points = hourglass()                                        //hourglass returns time
+                let points = (hourglass() * 2500)                                       //hourglass returns time, biggers points are cooler
                 pointsArray.unshift(points*modifierScore)                       //Add the new score in the pointsArray array in index 0 
                 pointsDiv.innerHTML = "Yours points : " + points*modifierScore
                 const newLeaderboarLi = leaderboardLi.cloneNode()               //Cloning nodes so we can add more li items
@@ -123,17 +123,31 @@ function displayBoard()
                     topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                 }
                 else if (topScoresCount == 2)                                                   //case when the played has played twice
-                {
-
+                {     
+                    removeAllChildNodes(topScores)       
+                    const newTopScoresLi2 = newTopScoresLi.cloneNode()          
                     topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
-                    topScores.appendChild(newTopScoresLi).innerHTML = "2 :" + pointsArray[1]
+                    topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
                 }
-                else                                                                            //Case when the player has played thrice or more
+                else if(topScoresCount == 3)                                                    //Case when the player has played thrice or more
                 {                                                                               //We display the leaderboards and they will refresh
-                                                                                                //the next time the player refreshes the game
+                                                                                                //the next time the player refreshes the game.
+                    removeAllChildNodes(topScores)                                              //We have to clean the old leaderboards in 1 and 2 cases
+                    const newTopScoresLi2 = newTopScoresLi.cloneNode()                          //Then clone new nodes to make them appear
+                    const newTopScoresLi3 = newTopScoresLi.cloneNode()                          
                     topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
-                    topScores.appendChild(newTopScoresLi).innerHTML = "2 :" + pointsArray[1]
-                    topScores.appendChild(newTopScoresLi).innerHTML = "3 :" + pointsArray[2]
+                    topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
+                    topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]
+                }
+                else
+                {
+                    pointsArray.pop()
+                    removeAllChildNodes(topScores)
+                    const newTopScoresLi2 = newTopScoresLi.cloneNode()            
+                    const newTopScoresLi3 = newTopScoresLi.cloneNode()      
+                    topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                    topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
+                    topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]               
                 }
                 newLeaderboarLi.classList.add("highrank")               //Add nothing is the display for now
                 highScore = "off"                                       //Resets the game : timer is reset, nb=0 because it will turn 1 because of nb++
@@ -193,7 +207,6 @@ mode = easy
 const timer = document.querySelector("#timer")
 const leaderboards = document.querySelector("#leaderboards")
 const topScores = document.querySelector("#topScores")
-points = hourglass * 2500                               //Big numbers are cooler, points calculations are very basic
 const timerDiv = document.createElement("div")
 const pointsDiv = document.createElement("div")
 const leaderboardLi = document.createElement("li")
