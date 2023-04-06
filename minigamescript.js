@@ -71,7 +71,7 @@ function setHighScore()
         const boxes = document.querySelectorAll("#board")
         removeAllChildNodes(board)                          //Remove all children of board : those are the inital boxes
         console.log(boxes)
-        highScore = "on"
+        highScore = "on"                                    //Highscore mode enabled
         aNumber = 10  
         displayBoard()        
         shuffleChildren(board)                 
@@ -83,10 +83,6 @@ function setHighScore()
         gameEnded = false                                                       //The game is replayable each time it is completed and player click high scores 
     }
 }        
-function sortNumericalDescending
-{
-
-}
 function displayBoard()
 {
                                         //board.appendChild(box) // Every node matching #board id has a child called box now. (The one above !)
@@ -111,20 +107,41 @@ function displayBoard()
                 board.querySelectorAll(".box").forEach(function(box)     //Select all "box" class and do showReaction forr each box
                 {             
                     showReaction("success", box)  
-                })
+                })             
                 clearInterval(localHourglassID)                      //The interval we made when we entered high score mode is removed : the timer stops                 
                 document.querySelector("#points").appendChild(pointsDiv)
                 let points = hourglass()                                        //hourglass returns time
+                pointsArray.unshift(points*modifierScore)                       //Add the new score in the pointsArray array in index 0 
                 pointsDiv.innerHTML = "Yours points : " + points*modifierScore
                 const newLeaderboarLi = leaderboardLi.cloneNode()               //Cloning nodes so we can add more li items
-                leaderboards.appendChild(newLeaderboarLi).innerHTML = "Old Score :"+ points*modifierScore
-                newLeaderboarLi.classList.add("highrank")
+                const newTopScoresLi = topScoresLi.cloneNode()
+                leaderboards.appendChild(newLeaderboarLi).innerHTML = "Old Score :"+ points*modifierScore   //Put a remainder of the score got last game
+                topScoresCount += 1
+                pointsArray.sort(function(a, b){return b-a})                                    //See w3 doc : sorting array in descending order 
+                if (topScoresCount == 1)                                                        //Case when the player only played once
+                {
+                    topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                }
+                else if (topScoresCount == 2)                                                   //case when the played has played twice
+                {
+
+                    topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                    topScores.appendChild(newTopScoresLi).innerHTML = "2 :" + pointsArray[1]
+                }
+                else                                                                            //Case when the player has played thrice or more
+                {                                                                               //We display the leaderboards and they will refresh
+                                                                                                //the next time the player refreshes the game
+                    topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                    topScores.appendChild(newTopScoresLi).innerHTML = "2 :" + pointsArray[1]
+                    topScores.appendChild(newTopScoresLi).innerHTML = "3 :" + pointsArray[2]
+                }
+                newLeaderboarLi.classList.add("highrank")               //Add nothing is the display for now
                 highScore = "off"                                       //Resets the game : timer is reset, nb=0 because it will turn 1 because of nb++
                 time = 600         
                 nb = 0
                 gameEnded = true                                        //Condition so we can't click on the boxes after completing the game
                 } 
-            nb++           
+            nb++                                                        //after a success player needs to click +1 higher number box
             }
             //2 
             else if (nb < i && gameEnded == false)                            //The case when the player hits a higher number than the one he's supposed to click.
@@ -153,34 +170,34 @@ function displayBoard()
     }    
 }
 //___________________________INITIALIZATION_________________________________________________________
-var mode                //Easy, intermediate or Hard
-var modifierScore = 1
-let time = 600
-var highScore = "off"
-let nb = 1
-var hourglassID 
-let gameEnded = false//We won't be able to click again after all boxes are clicked
-const descendingOrder = false
-const collator = new Intl.Collator(undefined, {numeric: isNumeric, sensitivity: 'base'})
-const highRankings = [...document.querySelectorAll("highrank")]
-const parentHighRankings = elements[0].parentNode
-const easy = "easy"
+var mode                    //Easy, intermediate or Hard
+var modifierScore = 1       //Base modifier is played does not select any mode
+let time = 600              //Ten minuts
+var highScore = "off"       //Base game has no HS
+let nb = 1                  //Will be use as a counter for the game 
+var hourglassID             //Variable that will be used in displayBoard to stop the timer from ticking 
+let gameEnded = false       //We won't be able to click again after all boxes are clicked
+let pointsArray = []        //All of the points will be contained is the array
+let topScoresCount = 0      //Will be used to help to display the cases when there are only 1 or 2 last scores
+const easy = "easy"         //Gameplay modes            
 const intermediate = "intermediate"
 const hard = "hard"
-const easyButton = document.querySelector("#easy")  
+const easyButton = document.querySelector("#easy")                  //Will select the #easy id button
 const intermediateButton = document.querySelector("#intermediate") 
 const hardButton = document.querySelector("#hard") 
 const highScoreMode = document.querySelector("#highScoreMode")
 const box = document.createElement("div")       // Declaration of a "box" constant creating "div" tags in the HTML document when used
 const board = document.querySelector("#board")      /*Declaration of a box constant returning the first element that
-                                                     is descendant of a node matching id #board selector*/
+                                                     is descendant of a node matching id #board selector : in short select #board*/
 mode = easy
 const timer = document.querySelector("#timer")
 const leaderboards = document.querySelector("#leaderboards")
-points = hourglass * 2500
+const topScores = document.querySelector("#topScores")
+points = hourglass * 2500                               //Big numbers are cooler, points calculations are very basic
 const timerDiv = document.createElement("div")
 const pointsDiv = document.createElement("div")
 const leaderboardLi = document.createElement("li")
+const topScoresLi = document.createElement("li")
 
 //______________________________EVENT LISTENERS BUTTONS_____________________
 
