@@ -78,9 +78,7 @@ function setHighScore()
         easyButton.removeEventListener("click",setEasyMode)                     //For fairness high scores are separated by categories
         intermediateButton.removeEventListener("click",setIntermediateMode)
         hardButton.removeEventListener("click",setHardMode)
-        const newTopScoresLi = topScoresLi.cloneNode()
-        const newTopScoresLi2 = newTopScoresLi.cloneNode()    
-        const newTopScoresLi3 = newTopScoresLi.cloneNode()         
+     
         gameEnded = false                                                       //The game is replayable each time it is completed and player click high scores    
         if (importedArray == null)
         {
@@ -142,8 +140,7 @@ function displayBoard()
                     let points = (hourglass() * 2500)                                       //hourglass returns time, biggers points are cooler
                     pointsArray.unshift(points*modifierScore)                       //Add the new score in the pointsArray array in index 0 
                     pointsDiv.innerHTML = "Yours points : " + points*modifierScore
-                    const newLeaderboarLi = leaderboardLi.cloneNode()               //Cloning nodes so we can add more li items
-                    const newTopScoresLi = topScoresLi.cloneNode()
+                    const newLeaderboarLi = leaderboardLi.cloneNode() 
                     leaderboards.appendChild(newLeaderboarLi).innerHTML = "Old Score :"+ points*modifierScore   //Put a remainder of the score got last game
                     topScoresCount += 1                     
                     pointsArray.sort(function(a, b){return b-a})                                    //See w3 doc : sorting array in descending order  
@@ -156,16 +153,13 @@ function displayBoard()
                         }
                         else if (pointsArray.length == 2)                                               //Force this display when there is only on high score stored
                         {
-                            removeAllChildNodes(topScores) 
-                            const newTopScoresLi2 = newTopScoresLi.cloneNode()               
+                            removeAllChildNodes(topScores)               
                             topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                             topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
                         }
                         else                                                                            //This covers when player has already 2 high scores stored
                         {                                                                               //and more 
-                            removeAllChildNodes(topScores) 
-                            const newTopScoresLi2 = newTopScoresLi.cloneNode()            
-                            const newTopScoresLi3 = newTopScoresLi.cloneNode()      
+                            removeAllChildNodes(topScores)     
                             topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                             topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
                             topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]                             
@@ -176,16 +170,13 @@ function displayBoard()
 
                         if (pointsArray.length == 2)                                                //case when the player has played twice and has no local scores
                         {
-                            removeAllChildNodes(topScores)       
-                            const newTopScoresLi2 = newTopScoresLi.cloneNode()            
+                            removeAllChildNodes(topScores)                 
                             topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                             topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
                         }
                         else
                         {
-                            removeAllChildNodes(topScores)       
-                            const newTopScoresLi2 = newTopScoresLi.cloneNode()      
-                            const newTopScoresLi3 = newTopScoresLi.cloneNode()        
+                            removeAllChildNodes(topScores)            
                             topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                             topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]         
                             topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]               
@@ -194,9 +185,7 @@ function displayBoard()
                 else if(topScoresCount == 3)                                                    //Case when the player has played thrice or more
                 {                                                                               //We display the leaderboards and they will refresh
                                                                                                 //the next time the player refreshes the game.
-                    removeAllChildNodes(topScores)                                              //Remove nodes to create new updated ones
-                    const newTopScoresLi2 = newTopScoresLi.cloneNode()                          //
-                    const newTopScoresLi3 = newTopScoresLi.cloneNode()                          
+                    removeAllChildNodes(topScores)                                              //Remove nodes to create new updated ones                       
                     topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                     topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
                     topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]
@@ -248,7 +237,7 @@ let gameEnded = false       //We won't be able to click again after all boxes ar
 let pointsArray = []        //All of the points will be contained is the array
 let topScoresCount = 0      //Will be used to help to display the cases when there are only 1 or 2 last scores
 const easy = "easy"         //Gameplay modes           
-let importedArray = JSON.parse(window.localStorage.getItem("imported")) 
+let importedArray = JSON.parse(window.localStorage.getItem("imported"))         //Import highscores if some were saved
 const intermediate = "intermediate"
 const hard = "hard"
 const easyButton = document.querySelector("#easy")                  //Will select the #easy id button
@@ -266,6 +255,9 @@ const timerDiv = document.createElement("div")
 const pointsDiv = document.createElement("div")
 const leaderboardLi = document.createElement("li")
 const topScoresLi = document.createElement("li")
+const newTopScoresLi = topScoresLi.cloneNode()          //Used to add multiple li itemps to the list
+const newTopScoresLi2 = newTopScoresLi.cloneNode()      //Declaring them nox to gain some lines
+const newTopScoresLi3 = newTopScoresLi.cloneNode()   
 
 //______________________________EVENT LISTENERS BUTTONS_____________________
 
@@ -281,8 +273,6 @@ do
 }                                                                                           //to a an int.
 while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN, a number greater than 100 or 0 or less it will do what's is in scope above
 //________________________________________________________________________________________________
-
-
 box.classList.add("box")                       //Each box element is given a class "box"
 displayBoard()
 shuffleChildren(board)                              //function is called to display to board and so all the elements in it will appear as well
