@@ -122,8 +122,8 @@ function displayBoard()
         board.appendChild(newbox)                   //To display the new boxes we have to appen the new node newbox to the parent node board
         newbox.addEventListener("click",function()  //to each newbox on the board add an EvenListener that will call the unnamed function above each time newbox is clicked
         {
-            if (i == nb && gameEnded == false)                                                    //The player has to click the number 1 first, then 2, etc.
-            {
+            if (i == nb && gameEnded == false)      //The player has to click the number 1 first, then 2, etc. gameEnded is a switch that will activate to true in the end
+            {                                       //And the game will be over : box won't interact
             mode == hard ? shuffleChildren(board): console.log("HARDE");        //When hard mode is activated shuffle the board each time the click is valid                 
             console.log("Boxle n°"+i+",  click !")                              //Display "boxle n°i, click !" in console
             newbox.classList.add("box-valid")                                   //add the class "box-valid" when clicked                                                                                    
