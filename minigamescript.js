@@ -1,4 +1,3 @@
-
 //_____________________________________________FUNCTIONS__________________________________________________________________________
 function shuffleChildren(parent)
 {
@@ -78,7 +77,6 @@ function setHighScore()
         easyButton.removeEventListener("click",setEasyMode)                     //For fairness high scores are separated by categories
         intermediateButton.removeEventListener("click",setIntermediateMode)
         hardButton.removeEventListener("click",setHardMode)
-     
         gameEnded = false                                                       //The game is replayable each time it is completed and player click high scores    
         if (importedArray == null)
         {
