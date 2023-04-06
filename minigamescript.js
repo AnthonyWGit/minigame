@@ -90,13 +90,13 @@ function setHighScore()
         }
         else
         {
-            pointsArray = pointsArray.concat(importedArray)    
-            if (importedArray.length == 1)
+            pointsArray = pointsArray.concat(importedArray)                                 //If the player had previous highscores the pointsArray will contain 
+            if (importedArray.length == 1)       //If the played had one high score         All of them 
             {
-                removeAllChildNodes(topScores)
-                topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
+                removeAllChildNodes(topScores)                                              
+                topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]        
             }
-            else if (importedArray.lenght == 2)
+            else if (importedArray.length == 2)                                                 //When the player had 2 HS registered
             {  
                 removeAllChildNodes(topScores)
                 topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
@@ -111,7 +111,7 @@ function setHighScore()
             }
         }
     }
-}        
+}  
 function displayBoard()
 {
                                         //board.appendChild(box) // Every node matching #board id has a child called box now. (The one above !)
@@ -145,50 +145,50 @@ function displayBoard()
                 const newLeaderboarLi = leaderboardLi.cloneNode()               //Cloning nodes so we can add more li items
                 const newTopScoresLi = topScoresLi.cloneNode()
                 leaderboards.appendChild(newLeaderboarLi).innerHTML = "Old Score :"+ points*modifierScore   //Put a remainder of the score got last game
-                topScoresCount += 1       
-                if (importedArray != null) pointsArray.concat(importedArray)                
-                pointsArray.sort(function(a, b){return b-a})                                    //See w3 doc : sorting array in descending order 
-  
+                topScoresCount += 1                     
+                pointsArray.sort(function(a, b){return b-a})                                    //See w3 doc : sorting array in descending order  
                 if (topScoresCount == 1)                                                        //Case when the player only played once
                 {
-                    if (pointsArray == null)
-                    {
-                        topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]                        
+                    if (pointsArray.length == 1)                                                //Force this display when there is only on high score
+                    {                                                                           //This means this is the Arst time the game is played
+                        removeAllChildNodes(topScores)         
+                        topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                     }
-                    else if (pointsArray.lenght == 1)
+                    else if (pointsArray.length == 2)
                     {
-                        const newTopScoresLi2 = newTopScoresLi.cloneNode()          
+                        removeAllChildNodes(topScores) 
+                        const newTopScoresLi2 = newTopScoresLi.cloneNode()               
                         topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                         topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
                     }
-                    else if (pointsArray.lenght == 2)
+                    else 
                     {
+                        removeAllChildNodes(topScores) 
                         const newTopScoresLi2 = newTopScoresLi.cloneNode()            
                         const newTopScoresLi3 = newTopScoresLi.cloneNode()      
                         topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                         topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
-                        topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]      
+                        topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]                             
                     }
-
                 }
                 else if (topScoresCount == 2)                                                   //case when the played has played twice
                 {     
 
-                    if (pointsArray.lenght == 2)
+                    if (pointsArray.length == 2)
                     {
                         removeAllChildNodes(topScores)       
-                        const newTopScoresLi2 = newTopScoresLi.cloneNode()          
-                        const newTopScoresLi3 = newTopScoresLi.cloneNode()    
+                        const newTopScoresLi2 = newTopScoresLi.cloneNode()            
                         topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                         topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
-                        topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]
                     }
                     else
                     {
                         removeAllChildNodes(topScores)       
-                        const newTopScoresLi2 = newTopScoresLi.cloneNode()          
+                        const newTopScoresLi2 = newTopScoresLi.cloneNode()      
+                        const newTopScoresLi3 = newTopScoresLi.cloneNode()        
                         topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
-                        topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]                        
+                        topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]         
+                        topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]               
                     }
                 }
                 else if(topScoresCount == 3)                                                    //Case when the player has played thrice or more
@@ -200,17 +200,7 @@ function displayBoard()
                     topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
                     topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
                     topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]
-                }
-                else
-                {
-                    removeAllChildNodes(topScores)
-                    const newTopScoresLi2 = newTopScoresLi.cloneNode()            
-                    const newTopScoresLi3 = newTopScoresLi.cloneNode()      
-                    topScores.appendChild(newTopScoresLi).innerHTML = "1 :" + pointsArray[0]
-                    topScores.appendChild(newTopScoresLi2).innerHTML = "2 :" + pointsArray[1]
-                    topScores.appendChild(newTopScoresLi3).innerHTML = "3 :" + pointsArray[2]               
-                }
-                
+                }             
                 window.localStorage.setItem("imported", JSON.stringify(pointsArray.slice(0,3))) //Exporting highscores in localstorage
                 newLeaderboarLi.classList.add("highrank")               //Add nothing is the display for now
                 highScore = "off"                                       //Resets the game : timer is reset, nb=0 because it will turn 1 because of nb++
@@ -295,3 +285,4 @@ while(isNaN(aNumber) || aNumber > 100 || aNumber < 1);      //If we enter an NaN
 box.classList.add("box")                       //Each box element is given a class "box"
 displayBoard()
 shuffleChildren(board)                              //function is called to display to board and so all the elements in it will appear as well
+console.log(importedArray)
